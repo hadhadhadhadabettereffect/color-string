@@ -56,12 +56,15 @@ function rgbaString(id: number) : string {
 //
 
 function setColor(id: number, color: number, value: number) : boolean {
-    if (!isInt(value)) return false;
-    if (value < 0) value = 0;
-    else if (value > 255) value = 255;
-    _rgb[id] &= ~(0xff << (color << 3));
-    _rgb[id] |= value << (color << 3);
-    return true; 
+    var success = false;
+    if (isFinite(value)) {
+        if (value < 0) value = 0;
+        else if (value > 255) value = 255;
+        _rgb[id] &= ~(0xff << (color << 3));
+        _rgb[id] |= value << (color << 3);
+        success = true; 
+    }
+    return success;
 }
 
 
@@ -88,7 +91,7 @@ Object.defineProperty(colorstring.prototype, "red", {
         return getColor(this.id, Colors.red);
     },
     set: function(val) {
-        if (!setColor(this.id, Colors.red, val)) {
+        if (!setColor(this.id, Colors.red, parseInt(val))) {
             warnProp("red", val);
         }
         return getColor(this.id, Colors.red);
@@ -100,7 +103,7 @@ Object.defineProperty(colorstring.prototype, "green", {
         return getColor(this.id, Colors.green);
     },
     set: function(val) {
-        if (!setColor(this.id, Colors.green, val)) {
+        if (!setColor(this.id, Colors.green, parseInt(val))) {
             warnProp("green", val);
         }
         return getColor(this.id, Colors.green);
@@ -112,7 +115,7 @@ Object.defineProperty(colorstring.prototype, "blue", {
         return getColor(this.id, Colors.blue);
     },
     set: function(val) {
-        if (!setColor(this.id, Colors.blue, val)) {
+        if (!setColor(this.id, Colors.blue, parseInt(val))) {
             warnProp("blue", val);
         }
         return getColor(this.id, Colors.blue);
@@ -124,12 +127,13 @@ Object.defineProperty(colorstring.prototype, "alpha", {
         return _alphas[this.id];
     },
     set: function(val) {
-        if (typeof val === "number") {
-            if (val < 0) val = 0.0;
-            else if (val > 1) val = 1.0;
-            _alphas[this.id] = val;
+        var f = parseFloat(val);
+        if (isFinite(f)) {
+            if (f < 0) f = 0;
+            else if (f > 1) f = 1;
+            _alphas[this.id] = f;
         } else {
-            warnProp("alpha", val);
+            warnProp("alpha", f);
         }
         return _alphas[this.id]; 
     }

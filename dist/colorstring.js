@@ -39,15 +39,17 @@ var ColorString = (function () {
     //  Value update
     //
     function setColor(id, color, value) {
-        if (!isInt(value))
-            return false;
-        if (value < 0)
-            value = 0;
-        else if (value > 255)
-            value = 255;
-        _rgb[id] &= ~(0xff << (color << 3));
-        _rgb[id] |= value << (color << 3);
-        return true;
+        var success = false;
+        if (isFinite(value)) {
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            _rgb[id] &= ~(0xff << (color << 3));
+            _rgb[id] |= value << (color << 3);
+            success = true;
+        }
+        return success;
     }
     //
     //  ColorString
@@ -69,7 +71,7 @@ var ColorString = (function () {
             return getColor(this.id, 2 /* red */);
         },
         set: function (val) {
-            if (!setColor(this.id, 2 /* red */, val)) {
+            if (!setColor(this.id, 2 /* red */, parseInt(val))) {
                 warnProp("red", val);
             }
             return getColor(this.id, 2 /* red */);
@@ -80,7 +82,7 @@ var ColorString = (function () {
             return getColor(this.id, 1 /* green */);
         },
         set: function (val) {
-            if (!setColor(this.id, 1 /* green */, val)) {
+            if (!setColor(this.id, 1 /* green */, parseInt(val))) {
                 warnProp("green", val);
             }
             return getColor(this.id, 1 /* green */);
@@ -91,7 +93,7 @@ var ColorString = (function () {
             return getColor(this.id, 0 /* blue */);
         },
         set: function (val) {
-            if (!setColor(this.id, 0 /* blue */, val)) {
+            if (!setColor(this.id, 0 /* blue */, parseInt(val))) {
                 warnProp("blue", val);
             }
             return getColor(this.id, 0 /* blue */);
@@ -102,15 +104,16 @@ var ColorString = (function () {
             return _alphas[this.id];
         },
         set: function (val) {
-            if (typeof val === "number") {
-                if (val < 0)
-                    val = 0.0;
-                else if (val > 1)
-                    val = 1.0;
-                _alphas[this.id] = val;
+            var f = parseFloat(val);
+            if (isFinite(f)) {
+                if (f < 0)
+                    f = 0;
+                else if (f > 1)
+                    f = 1;
+                _alphas[this.id] = f;
             }
             else {
-                warnProp("alpha", val);
+                warnProp("alpha", f);
             }
             return _alphas[this.id];
         }

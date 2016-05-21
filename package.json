@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "npm run compress && npm run umdwrap && npm test",
-    "transpile": "tsc --target es5 --outDir dist src/color-string.ts",
+    "transpile": "tsc --target es5 --outDir dist src/colorstring.ts",
     "precompress": "npm run transpile",
     "compress": "uglifyjs dist/colorstring.js -o dist/colorstring.min.js --screw-ie8 --mangle --compress -r ColorString",
     "umdwrap": "node wrap-umd.js",

@@ -5,8 +5,6 @@ var ColorString = require("./dist/colorstring-module.js");
 test("\n instance creation", function(t) {
     t.comment(groupTitle("obj.id"));
 
-    t.plan(3);
-
     t.test("instance.id is an int", function(tt) {    
         tt.plan(2);
         var c = new ColorString();
@@ -37,7 +35,6 @@ test("\n instance creation", function(t) {
 test("\n red, green, and blue properties", function(t) {
     t.comment(groupTitle("obj.red, obj.green, obj.blue"));
 
-    t.plan(9);
     t.test("red, green, blue properties are ints", function(tt) {
         tt.plan(3);
         function isUint8(n) {
@@ -81,20 +78,20 @@ test("\n red, green, and blue properties", function(t) {
         tt.notEqual(b1, b2);
     });
 
-    t.test("red, green, blue properties cannot be assigned string values", function(tt) {
-        tt.plan(3);
+    t.test("red, green, blue properties can be assigned parsable string values", function(tt) {
+        tt.plan(6);
         var c = new ColorString();
-        var r1 = c.red = 1;
-        var g1 = c.green = 2;
-        var b1 = c.blue = 3;
+        tt.equal(c.red, 255, "confirm default value");
+        tt.equal(c.green, 255, "confirm default value");
+        tt.equal(c.blue, 255, "confirm default value");
        
-        c.red = "4";
-        c.green ="5";
-        c.blue = "6";
+        c.red = "1";
+        c.green ="2";
+        c.blue = "3";
         
-        tt.equal(r1, c.red);
-        tt.equal(g1, c.green);
-        tt.equal(b1, c.blue);
+        tt.equal(c.red, 1);
+        tt.equal(c.green, 2);
+        tt.equal(c.blue, 3);
     });
 
     t.test("red, green, blue properties cannot be set to null", function(tt) {
@@ -113,20 +110,20 @@ test("\n red, green, and blue properties", function(t) {
         tt.equal(b1, c.blue);
     });
 
-    t.test("red, green, blue properties cannot be assigned float values", function(tt) {
-        tt.plan(3);
+    t.test("float values for red, green, blue will be floored", function(tt) {
+        tt.plan(6);
         var c = new ColorString();
-        var r1 = c.red = 1;
-        var g1 = c.green = 2;
-        var b1 = c.blue = 3;
-       
-        c.red = 4.5;
-        c.green = 5.1;
-        c.blue = 7.7;
+        tt.equal(c.red, 255, "confirm default value");
+        tt.equal(c.green, 255, "confirm default value");
+        tt.equal(c.blue, 255, "confirm default value");
         
-        tt.equal(r1, c.red);
-        tt.equal(g1, c.green);
-        tt.equal(b1, c.blue);
+        c.red = 4.5;
+        c.green /= 2; // 127.5
+        c.blue *= 0.33; // 84.15 
+        
+        tt.equal(c.red, 4);
+        tt.equal(c.green, 127);
+        tt.equal(c.blue, 84);
     });
 
     t.test("red, green, blue properties can be incremented", function(tt) {
@@ -205,7 +202,6 @@ test("\n red, green, and blue properties", function(t) {
 
 test("\n hex property", function(t) {
     t.comment(groupTitle("obj.hex"));
-    t.plan(6);
 
     t.test("default value of hex property is '#ffffff'", function(tt) {
         tt.plan(1);
@@ -274,7 +270,6 @@ test("\n hex property", function(t) {
 
 test("\n rgba property", function(t) {
     t.comment(groupTitle("obj.rgba"));
-    t.plan(6);
     
     t.test("default value of rgba property is 'rgba(255,255,255,1.0)'", function(tt) {
         tt.plan(1);
@@ -345,6 +340,30 @@ test("\n alpha property", function(t) {
         tt.plan(1);
         var c = new ColorString();
         tt.equal(c.alpha, 1.0);
+    });
+
+    t.test("alpha can be set with a number", function(tt) {
+        tt.plan(2);
+        var c = new ColorString();
+        tt.equal(c.alpha, 1.0, "confirm default value");
+        c.alpha = 0.5;
+        tt.equal(c.alpha, 0.5);
+    });
+
+    t.test("alpha can be set with a parsable string", function(tt) {
+        tt.plan(2);
+        var c = new ColorString();
+        tt.equal(c.alpha, 1.0, "confirm default value");
+        c.alpha = "0.5";
+        tt.equal(c.alpha, 0.5);
+    });
+
+    t.test("alpha cannot be set with null", function(tt) {
+        tt.plan(2);
+        var c = new ColorString();
+        tt.equal(c.alpha, 1.0, "confirm default value");
+        c.alpha = null;
+        tt.equal(c.alpha, 1.0, "value unchanged");
     });
 
     t.test("updating alpha updates rgba", function(tt) {

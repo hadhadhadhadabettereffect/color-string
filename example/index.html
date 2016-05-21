@@ -11,6 +11,11 @@
         line-height: 20px;
         color: #222222;
       }
+      form {
+          border-bottom: 1px solid #bcbcbc;
+          margin-bottom: 16px;
+          padding-bottom: 16px;
+      }
       label {
           display: inline-block;
           text-transform: uppercase;
@@ -55,12 +60,9 @@
         <label for="blue">blue</label>
         <input id="blue" type="range" min="0" max="255" value="255" />       
        
+        <label for="alpha">alpha</label>
+        <input id="alpha" type="range" min="0" max="1" step="0.01" value="1" />
       </form>
-      
-      <label for="alpha">alpha</label>
-      <input id="alpha" type="range" min="0" max="1" step="0.01" value="1" />
-      
-      <hr>
 
       <label for="hex">hex</label>
       <span id="hex">#ffffff</span>
