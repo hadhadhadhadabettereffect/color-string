@@ -1,0 +1,37 @@
+{
+  "name": "color-string",
+  "version": "1.0.0",
+  "description": "javascript object constructor for hex/rgba color strings to allow for channel-specific adjustments",
+  "main": "dist/colorstring-module.js",
+  "keywords": [
+    "color",
+    "string",
+    "css",
+    "rgb",
+    "rgba",
+    "hex"
+  ],
+  "author": {
+    "name": "Eric Birkeland",
+    "email": "ericjbirkeland@gmail.com"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hadhadhadhadabettereffect/color-string.git"
+  },
+  "scripts": {
+    "build": "npm run compress && npm run umdwrap && npm test",
+    "transpile": "tsc --target es5 --outDir dist src/color-string.ts",
+    "precompress": "npm run transpile",
+    "compress": "uglifyjs dist/colorstring.js -o dist/colorstring.min.js --screw-ie8 --mangle --compress -r ColorString",
+    "umdwrap": "node wrap-umd.js",
+    "test": "node tests.js | faucet"
+  },
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "tape": "^4.5.1",
+    "typescript": "^1.8.10",
+    "uglify-js": "^2.6.2"
+  }
+}
