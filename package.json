@@ -28,8 +28,9 @@
     "test": "node tests.js"
   },
   "devDependencies": {
+    "browserify": "^13.1.1",
     "tape": "^4.5.1",
-    "ts-loader": "^1.0.0",
-    "typescript": "^1.8.10"
+    "typescript": "^1.8.10",
+    "uglify-js": "^2.7.4"
   }
 }
