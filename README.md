@@ -11,7 +11,8 @@
     blue: int, // 0-255
     alpha: float, // 0-1
     hex: string, // default "#ffffff"
-    rgba: string // default "rgba(255,255,255,1.0)"
+    rgb: string, // default "rgb(255, 255, 255)"
+    rgba: string // default "rgba(255, 255, 255, 1.0)"
 }
 ```
 
@@ -35,16 +36,16 @@ myColor.red = 0;
 myColor.hex = "#fff";
 // myColor.red == 255
 
-myColor.rgba = "rgb(120,40,30)";
+myColor.rgba = "rgb(120, 40, 30)";
 // myColor.red == 120
 ```
 
 "alpha" can be set with a float or in an rgba string
 ```
 myColor.alpha = 0.7;
-// myColor.rgba == "rgba(120,40,30,0.7)"
+// myColor.rgba == "rgba(120, 40, 30, 0.7)"
 
-myColor.rgba = "rgba(255,255,255,0.2)";
+myColor.rgba = "rgba(255, 255, 255, 0.2)";
 // myColor.alpha == 0.2
 ```
 
@@ -53,5 +54,5 @@ myColor.rgba = "rgba(255,255,255,0.2)";
 * update file[s] in the src/ directory
 * add tests to ./tests.js
 * testing's being done with tape <https://github.com/substack/tape>
-* `npm run build` to update files in dist/
+* `npm run bundle` to update files in build/
 * `npm test` to run tests

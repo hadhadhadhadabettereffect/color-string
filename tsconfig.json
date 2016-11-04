@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "pretty": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "outDir": "./build"
+    },
+    "files": [
+        "./src/enums.d.ts",
+        "./src/index.ts" ]
+}

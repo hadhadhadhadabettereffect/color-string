@@ -20,7 +20,7 @@
           display: inline-block;
           text-transform: uppercase;
           font-size: 10px;
-          width: 48px;          
+          width: 48px;
           height: 20px;
       }
       input, span {
@@ -53,25 +53,25 @@
       <form id="channels">
         <label for="red">red</label>
         <input id="red" type="range" min="0" max="255" value="255" />
-        
+
         <label for="green">green</label>
         <input id="green" type="range" min="0" max="255" value="255" />
-        
+
         <label for="blue">blue</label>
-        <input id="blue" type="range" min="0" max="255" value="255" />       
-       
+        <input id="blue" type="range" min="0" max="255" value="255" />
+
         <label for="alpha">alpha</label>
         <input id="alpha" type="range" min="0" max="1" step="0.01" value="1" />
       </form>
 
       <label for="hex">hex</label>
       <span id="hex">#ffffff</span>
-      
+
       <label for="rgba">rgba</label>
       <span id="rgba">rgba(255,255,255,0.1)</span>
-      
+
     </div>
-    <script src="../dist/colorstring.js"></script>
+    <script src="../build/colorstring.js"></script>
     <script>
       var setText = (function(doc) {
           return "textContent" in doc ?
