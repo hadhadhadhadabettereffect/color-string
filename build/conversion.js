@@ -15,7 +15,9 @@ function hexToInt(hex) {
     if (hex.charAt(0) == '#')
         hex = hex.substring(1);
     if (hex.length === 3)
-        hex += hex;
+        hex = hex[0] + hex[0] +
+            hex[1] + hex[1] +
+            hex[2] + hex[2];
     return parseInt(hex, 16);
 }
 exports.hexToInt = hexToInt;
